@@ -1,0 +1,252 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Thêm các enum
+enum TrangThaiSan {
+  HOATDONG
+  BAOTRI
+  NGUNG_HOATDONG
+}
+
+enum TrangThaiDatSan {
+  CHO_XAC_NHAN
+  DA_XAC_NHAN
+  DANG_THUE
+  DA_TRA
+  DA_HUY
+}
+
+model VaiTro {
+  id          Int            @id @default(autoincrement())
+  Ten         String
+  users       Nguoidung[]
+  permissions VaiTro_Quyen[]
+}
+
+model Nguoidung {
+  id          Int           @id @default(autoincrement())
+  Ten         String
+  SoDienThoai String
+  Email       String        @unique
+  DiaChi      String
+  MaVaiTro    Int
+  MatKhau     String
+  vaitro      VaiTro?       @relation(fields: [MaVaiTro], references: [id])
+  ratings     DanhGia[]
+  workShifts  LichLamViec[]
+  jobs        CongViec[]
+  orders      DonDatHang[]
+  bookings    DatSan[]
+}
+
+model Quyen {
+  id    Int            @id @default(autoincrement())
+  Ten   String
+  MoTa  String?        @db.LongText
+  roles VaiTro_Quyen[]
+}
+
+model VaiTro_Quyen {
+  Id       Int    @id @default(autoincrement())
+  MaVaiTro Int
+  MaQuyen  Int
+  Ten      String
+  vaitro   VaiTro @relation(fields: [MaVaiTro], references: [id])
+  quyen    Quyen  @relation(fields: [MaQuyen], references: [id])
+}
+
+model DanhMuc {
+  id          Int       @id @default(autoincrement())
+  Ten         String
+  MoTa        String?   @db.VarChar(45)
+  NgayTao     DateTime?
+  NgayCapNhat DateTime?
+  parent_id   Int?
+  parent      DanhMuc?  @relation("ParentChild", fields: [parent_id], references: [id])
+  children    DanhMuc[] @relation("ParentChild")
+  products    San[]
+}
+
+model San {
+  id          Int           @id @default(autoincrement())
+  Ten         String?       @unique
+  MoTa        String?
+  TrangThai   TrangThaiSan  @default(HOATDONG)
+  Sale        Int
+  Gia         Int
+  Tongtien    Int
+  idDanhMuc   Int
+  TongDanhGia Int
+  TongSao     Int
+  danhMuc     DanhMuc?      @relation(fields: [idDanhMuc], references: [id])
+  reviews     DanhGia[]
+  images      San_HinhAnh[]
+  bookings    DatSan[]
+  maintenance DotBaoTri[]
+  GiaSan      GiaSan[]
+}
+
+model San_HinhAnh {
+  idSan       Int       @id
+  Ten         String
+  Link        String
+  NgayTao     DateTime?
+  NgayCapNhat DateTime?
+  san         San       @relation(fields: [idSan], references: [id])
+}
+
+model DanhGia {
+  id           Int        @id @default(autoincrement())
+  NoiDung      String
+  id_San       Int?
+  id_Nguoidung Int?
+  Sao          Int?
+  NgayTao      DateTime?
+  NgayCapNhat  DateTime?
+  san          San?       @relation(fields: [id_San], references: [id])
+  nguoidung    Nguoidung? @relation(fields: [id_Nguoidung], references: [id])
+}
+
+model BaoTri {
+  id          Int         @id @default(autoincrement())
+  Ten         String?
+  NgayBatDau  DateTime?
+  NgayKetThuc DateTime?
+  maintenance DotBaoTri[]
+}
+
+model DotBaoTri {
+  id     Int     @id @default(autoincrement())
+  BaoTri Int?
+  San    Int?
+  baoTri BaoTri? @relation(fields: [BaoTri], references: [id])
+  san    San?    @relation(fields: [San], references: [id])
+}
+
+model GiaSan {
+  id         Int       @id @default(autoincrement())
+  GioBatDau  DateTime?
+  GioKetThuc DateTime?
+  Gia        Int?
+  san        San?      @relation(fields: [id], references: [id])
+}
+
+model LichLamViec {
+  id          Int        @id @default(autoincrement())
+  MaNguoiDung Int?
+  NgayLamViec DateTime?
+  CaLam       String?
+  GioBatDau   DateTime?
+  GioKetThuc  DateTime?
+  nguoiDung   Nguoidung? @relation(fields: [MaNguoiDung], references: [id])
+}
+
+model CongViec {
+  id          Int        @id @default(autoincrement())
+  MaNguoiDung Int?
+  MoTa        String?
+  TrangThai   Int?
+  NgayGiao    DateTime?
+  NgayKetThuc DateTime?
+  nguoiDung   Nguoidung? @relation(fields: [MaNguoiDung], references: [id])
+}
+
+model SanPham {
+  id                 Int                  @id @default(autoincrement())
+  Ten                String?              @db.VarChar(255)
+  MoTa               String?              @db.VarChar(255)
+  SoLuong            Int?
+  NgayTao            DateTime?
+  NgayCapNhat        DateTime?
+  GiaBan             Int?
+  suppliers          NhaCungCap[]
+  images             HinhSanPham[]
+  SanPhamKhuyenMai   SanPhamKhuyenMai[]
+  SanPham_DonDatHang SanPham_DonDatHang[]
+}
+
+model NhaCungCap {
+  id          Int      @id @default(autoincrement())
+  Ten         String?
+  DiaChi      String?
+  SoDienThoai String?
+  Email       String?
+  idSanPham   Int?
+  sanPham     SanPham? @relation(fields: [idSanPham], references: [id])
+}
+
+model HinhSanPham {
+  id          Int       @id @default(autoincrement())
+  idSanPham   Int
+  Ten         String?
+  DuongDan    String?
+  NgayTao     DateTime?
+  NgayCapNhat DateTime?
+  SanPham     SanPham   @relation(fields: [idSanPham], references: [id])
+}
+
+model KhuyenMai {
+  id               Int                @id @default(autoincrement())
+  Ten              String?
+  NgayBatDau       DateTime?
+  NgayKetThuc      DateTime?
+  SanPhamKhuyenMai SanPhamKhuyenMai[]
+}
+
+model SanPhamKhuyenMai {
+  id        Int        @id @default(autoincrement())
+  SanPham   Int?
+  KhuyenMai Int?
+  SoLuong   Int?
+  sanPham   SanPham?   @relation(fields: [SanPham], references: [id])
+  khuyenMai KhuyenMai? @relation(fields: [KhuyenMai], references: [id])
+}
+
+model HinhThucThanhToan {
+  id     Int          @id @default(autoincrement())
+  Ten    String?
+  orders DonDatHang[]
+}
+
+model DonDatHang {
+  id                 Int                  @id @default(autoincrement())
+  NgayTao            DateTime?
+  TrangThaiThanhToan String?
+  idKhachHang        Int?
+  MaThanhToan        Int?
+  nguoiDung          Nguoidung?           @relation(fields: [idKhachHang], references: [id])
+  paymentMethod      HinhThucThanhToan?   @relation(fields: [MaThanhToan], references: [id])
+  products           SanPham_DonDatHang[]
+}
+
+model SanPham_DonDatHang {
+  id         Int         @id @default(autoincrement())
+  id_SanPham Int?
+  id_DonHang Int?
+  sanPham    SanPham?    @relation(fields: [id_SanPham], references: [id])
+  donHang    DonDatHang? @relation(fields: [id_DonHang], references: [id])
+}
+
+model DatSan {
+  id          Int             @id @default(autoincrement())
+  id_NguoiDat Int?
+  id_San      Int?
+  GioBatDau   DateTime?
+  GioTraSan   DateTime?
+  TongTien    Int?
+  TrangThai   TrangThaiDatSan @default(CHO_XAC_NHAN)
+  nguoiDung   Nguoidung?      @relation(fields: [id_NguoiDat], references: [id])
+  san         San?            @relation(fields: [id_San], references: [id])
+}

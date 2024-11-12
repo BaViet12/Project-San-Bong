@@ -19,6 +19,7 @@ export async function DELETE(
     );
   }
 }
+
 export async function GET(
   requets: NextRequest,
   { params }: { params: { id: string } }

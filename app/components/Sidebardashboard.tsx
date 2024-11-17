@@ -16,7 +16,7 @@ const Sidebardashboard: React.FC = () => {
     const sidebarLink:SidebarLink[] = [
         {
             icon:<GiSoccerField />,
-            href:"/dashboard/themsan",
+            href:"/dashboard/soccermanager",
             label:"Quản lý sân bóng",
         }
     ]
@@ -26,8 +26,8 @@ const Sidebardashboard: React.FC = () => {
         router.push(href);
      };
   return (
-    <div className="flex flex-col w-30 h-full bg-slate-950 fixed">
-      <div className="collapse collapse-arrow w-64 m-6 bg-slate-950">
+    <div className="flex flex-col w-72 h-full bg-green-900 fixed">
+      <div className="collapse collapse-arrow w-64 m-6 bg-green-900">
         <input type="checkbox" name="my-accordion-2" />
         <div className="collapse-title text-white text-base text-center mb-2  font-medium">
           <div className="absolute left-9 top-4 text-xl"><GrUserManager /></div>
@@ -41,7 +41,7 @@ const Sidebardashboard: React.FC = () => {
               onClick={() => handleNavigation(link.href)}
               className={`block pl-7 pr-7 py-2 rounded-lg transition-colors ${
                 isActivePath(link.href)
-                  ? "bg-blue-600 text-white"
+                  ? "bg-green-800 text-white"
                   : "text-gray-300 hover:bg-slate-800 hover:text-white"
               }`}
             >

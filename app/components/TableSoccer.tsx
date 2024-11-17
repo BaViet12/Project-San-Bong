@@ -74,9 +74,9 @@ const TableSoccer = () => {
 
     return (
         <div className="overflow-x-auto flex justify-center mt-10">
-            <table className="table w-[1500px]">
+            <table className="table w-[1300px]">
                 <thead>
-                    <tr className='text-2xl'>
+                    <tr className='bg-green-800 text-white'>
                         <th>Mã sân</th>
                         <th>Tên sân</th>              
                         <th>Mô tả</th>

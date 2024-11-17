@@ -3,9 +3,9 @@ import React from 'react'
 
 const NavbarDashboard = () => {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-green-900 w-full">
         <div className="flex-none">
-            <button className="btn btn-square btn-ghost">
+            <button className="btn btn-square btn-ghost text-white">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -20,7 +20,7 @@ const NavbarDashboard = () => {
             </button>
         </div>
         <div className="flex-1">
-            <a className="btn btn-ghost text-xl">Sân Bóng Đình Làng Hòa Mỹ</a>
+            <a className="btn btn-ghost text-xl text-white">Sân Bóng Đình Làng Hòa Mỹ</a>
         </div>
         <div className="flex-none">
             <button className="btn btn-square btn-ghost">

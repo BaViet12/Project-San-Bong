@@ -89,7 +89,6 @@ const addSoccer = () => {
         }
       };
       const handleDelete = async (e:any) =>{
-        
       }
 
   return (

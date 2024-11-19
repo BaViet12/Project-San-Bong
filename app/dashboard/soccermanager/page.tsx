@@ -37,6 +37,13 @@ const Soccermanager = () => {
   const [success, setSuccess] = useState<string>('');
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
+  const [editSoccer, setEditSoccer] = useState<FormData | null>(null); // Dữ liệu sân cần chỉnh sửa
+  // Sửa
+  const handleEdit = (soccer: FormData) => {
+    setEditSoccer(soccer);
+  };
+  
+
   
   useEffect(() => {
     fetch('/api/danhmuc')
@@ -76,38 +83,170 @@ const Soccermanager = () => {
         },
         body: JSON.stringify(formData),
       });
-
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to create product');
       }
-
       const data = await response.json();
       setSuccess(data.message || 'Product created successfully');
       setFormData(initialFormData);
-
+      
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Error creating product');
       console.error('Error creating San:', err);
     }
   };
-  const handleDelete = async (e:any) =>{
+
+  const handleDelete = async (id:number) =>{
+    
   }
 
   return (
-    <div className="p-2 w-[1300px] h-full ml-7" data-theme="light">
-        <div className='flex w-[1300px] justify-between p-5 items-center'>
+    <div className="p-2 w-full h-full ml-7" data-theme="light">
+        <div className='flex w-full justify-between p-5 items-center'>
             <h1 className='text-3xl font-bold'>Quản lý Sân Bóng</h1>
-            <button className='rounded-box bg-green-600 px-3 py-2 text-white hover:bg-orange-600'>
-                Thêm mới
-            </button>
+              <button className="btn bg-green-800 text-white mr-16" onClick={()=>document.getElementById('my_modal_3').showModal()}>Thêm sân</button>
+                <dialog id="my_modal_3" className="modal">
+                  <div className="modal-box">
+                    <h3 className="font-bold text-lg">Thêm sân bóng</h3>
+                    <form method="dialog" onSubmit={handleSubmit}>  
+                    {error && (
+                      <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        {error}
+                      </div>
+                    )}
+                    {success && (
+                      <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                        {success}
+                      </div>
+                    )}                           
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Tên Sân</label>
+                          <input
+                            type="text"
+                            name="Ten"
+                            value={formData.Ten}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            required
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Mô Tả</label>
+                          <textarea
+                            name="MoTa"
+                            value={formData.MoTa}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            required
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Trạng Thái</label>
+                          <input
+                            type="text"
+                            name="TrangThai"
+                            value={formData.TrangThai}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Sale (%)</label>
+                          <input
+                            type="number"
+                            name="Sale"
+                            value={formData.Sale}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            min="0"
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Giá</label>
+                          <input
+                            type="number"
+                            name="Gia"
+                            value={formData.Gia}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            min="0"
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Tổng Tiền</label>
+                          <input
+                            type="number"
+                            name="Tongtien"
+                            value={formData.Tongtien}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            min="0"
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Danh Mục Sân</label>
+                          <select
+                            name="idDanhMuc"
+                            value={formData.idDanhMuc}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                          >
+                            <option value="">Chọn Danh Mục</option>
+                            {danhMucOptions.map((danhmuc) => (
+                              <option key={danhmuc.id} value={danhmuc.id}>
+                                {danhmuc.Ten}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Tổng Đánh Giá</label>
+                          <input
+                            type="number"
+                            name="TongDanhGia"
+                            value={formData.TongDanhGia}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            min="0"
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Tổng Sao</label>
+                          <input
+                            type="number"
+                            name="TongSao"
+                            value={formData.TongSao}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
+                            min="0"
+                            max="5"
+                          />
+                        </div>
+
+                        <button type="submit"
+                          className="w-full py-2 mt-4 text-white bg-green-800 rounded hover:bg-blue-600"
+                        >
+                          Thêm Sân Bóng
+                        </button>
+                    </form>
+                  </div>
+                </dialog>
         </div>
-        <div className='flex w-[1300px] justify-center'>
+        <div className='flex justify-center ml-20'>
             <TableSoccer></TableSoccer>
         </div>
     </div>
   )
 }
-
 
 export default Soccermanager

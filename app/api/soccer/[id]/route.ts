@@ -38,5 +38,36 @@ export async function GET(
     );
   }
 }
-
-
+export async function PUT(
+  requets: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  const body = await requets.json();
+  const Id = parseInt(params.id);
+  const ue = await prisma.san.findFirst({ where: { Ten: body.Ten } });
+  if (ue == null) {
+    const PutSoccer = await prisma.san.update({
+      where: { id: Id },
+      data: {
+        Ten: body.Ten,
+        MoTa: body.MoTa,
+        TrangThai: body.TrangThai,
+        Sale: parseInt(body.Sale),
+        Gia: parseInt(body.Gia),
+        Tongtien: parseInt(body.Tongtien),
+        idDanhMuc: parseInt(body.idDanhMuc),
+        TongDanhGia: parseInt(body.TongDanhGia),
+        TongSao: parseInt(body.TongSao),
+      },
+    });
+    return NextResponse.json(
+      {
+        PutSoccer,
+        message: `Cập nhật Sân bóng có mã id ${params.id}`,
+      },
+      { status: 201 }
+    );
+  } else {
+    return NextResponse.json({ message: "Sân đã tồn tại" }, { status: 400 });
+  }
+}

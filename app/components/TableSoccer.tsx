@@ -31,7 +31,7 @@ interface DanhMuc {
 const TableSoccer = () => {
     const [isSanTable, setSanTable] = useState<San[]>([]);
     const [isDanhMucTable, setDanhMucTable] = useState<DanhMuc[]>([]);
-
+    
     useEffect(()=>{
         fetch('/api/soccer')
         .then((response) =>{
@@ -71,6 +71,25 @@ const TableSoccer = () => {
         const danhMuc = isDanhMucTable.find((loai) => loai.id === idDanhMuc);
         return danhMuc ? danhMuc.Ten : 'N/A';
     };
+    
+    const handleDelete = async (id: number) => {
+        try {
+            const response = await fetch(`/api/soccer/${id}`, {
+                method: 'DELETE',
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to delete soccer');
+            }
+    
+            // Cập nhật lại danh sách sân sau khi xóa
+            setSanTable((prev) => prev.filter((soccer) => soccer.id !== id));
+            console.log('Deleted successfully');
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+    
 
     return (
         <div className="overflow-x-auto flex justify-center mt-10">
@@ -101,12 +120,12 @@ const TableSoccer = () => {
                             <td>{soccer.Sale}</td>
                             <td>{soccer.Gia}</td>
                             <td>{soccer.Tongtien}</td>
-                            <td>{getDanhMuc(soccer.id)}</td>
+                            <td>{getDanhMuc(soccer.idDanhMuc)}</td>
                             <td>{soccer.TongDanhGia}</td>
                             <td>{soccer.TongSao}</td>
                             <td className='flex gap-5 text-2xl text-center'>
-                                <BsPencil />
-                                <MdOutlineDeleteOutline />
+                                <BsPencil className='hover:text-green-800'/>
+                                <MdOutlineDeleteOutline className='hover:text-green-800' onClick={() => handleDelete(soccer.id)}/>
                             </td>
                         </tr>
                     ))}

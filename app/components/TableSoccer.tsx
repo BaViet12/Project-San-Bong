@@ -14,6 +14,7 @@ interface San {
     Sale: number;
     Gia: number;
     Tongtien: number;
+    HinhDaiDien:string;
     idDanhMuc:number;
     TongDanhGia: number;
     TongSao: number;
@@ -103,6 +104,7 @@ const TableSoccer = () => {
                         <th>Sale</th>
                         <th>Giá</th>
                         <th>Tổng tiền</th>
+                        <th>Hình ảnh</th>
                         <th>Loại sân</th>
                         <th>Tổng đánh giá</th>
                         <th>Tổng sao</th>
@@ -120,6 +122,7 @@ const TableSoccer = () => {
                             <td>{soccer.Sale}</td>
                             <td>{soccer.Gia}</td>
                             <td>{soccer.Tongtien}</td>
+                            <td>{soccer.HinhDaiDien}</td>
                             <td>{getDanhMuc(soccer.idDanhMuc)}</td>
                             <td>{soccer.TongDanhGia}</td>
                             <td>{soccer.TongSao}</td>

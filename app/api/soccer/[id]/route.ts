@@ -26,7 +26,10 @@ export async function GET(
 ) {
   const SoccerId = parseInt(params.id);
   try {
-    const Soccer = await prisma.san.findUnique({ where: { id: SoccerId } });
+    const Soccer = await prisma.san.findUnique({
+      where: { id: SoccerId },
+      include: { images: true },
+    });
     return NextResponse.json(
       { Soccer, message: `Thông tin sân có ID ${params.id} ` },
       { status: 201 }

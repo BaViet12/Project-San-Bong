@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `san` ADD COLUMN `HinhDaiDien` VARCHAR(191) NOT NULL DEFAULT '';

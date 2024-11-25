@@ -12,7 +12,7 @@ const Intro = () => {
             <h1 className='text-4xl font-bold pb-3'>Tìm kiếm sân</h1>
             <p>Tìm kiếm nhanh chóng dựa trên dữ liệu bạn đưa ra</p>    
         </div>
-        <div className='border-x-2 border-green-600 px-28 hover:text-green-800 text-black'>
+        <div className='px-28 hover:text-green-800 text-black'>
             <CiCalendarDate className='text-8xl ml-36 pb-3'/>
             <h1 className='text-4xl font-bold pb-3'>Đặt lịch</h1>
             <p>Tìm kiếm nhanh chóng dựa trên dữ liệu bạn đưa ra</p>  

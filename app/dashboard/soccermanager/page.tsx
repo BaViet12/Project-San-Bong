@@ -9,6 +9,7 @@ interface FormData {
     Sale: string;
     Gia: string;
     Tongtien: string;
+    HinhDaiDien : string;
     idDanhMuc: string;
     TongDanhGia: string;
     TongSao: string;
@@ -26,6 +27,7 @@ const Soccermanager = () => {
     Sale:'',
     Gia:'',
     Tongtien:'',
+    HinhDaiDien:'',
     idDanhMuc:'',
     TongDanhGia:'',
     TongSao:'',
@@ -188,6 +190,17 @@ const Soccermanager = () => {
                             onChange={handleChange}
                             className="w-full px-3 py-2 border rounded"
                             min="0"
+                          />
+                        </div>
+
+                        <div className="mb-4">
+                          <label className="block text-gray-700">Link hình ảnh</label>
+                          <input
+                            type="text"
+                            name="HinhDaiDien"
+                            value={formData.HinhDaiDien}
+                            onChange={handleChange}
+                            className="w-full px-3 py-2 border rounded"
                           />
                         </div>
 

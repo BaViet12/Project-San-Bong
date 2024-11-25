@@ -86,6 +86,7 @@ model San {
   TrangThai   TrangThaiSan  @default(HOATDONG)
   Sale        Int
   Gia         Int
+  HinhDaiDien String
   Tongtien    Int
   idDanhMuc   Int
   TongDanhGia Int

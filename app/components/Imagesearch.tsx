@@ -32,11 +32,11 @@ const Imagesearch = () => {
   };
   return (
     <div className=''>
-       <div className="carousel w-full relative opacity-55">
+       <div className="carousel w-full relative">
           <div id="slide1" className="carousel-item relative w-full">
             <img
               src="https://images.pexels.com/photos/262524/pexels-photo-262524.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              className="w-full h-[550px]" />
+              className="w-full h-[700px]" />
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
               <a href="#slide4" className="btn btn-circle">❮</a>
               <a href="#slide2" className="btn btn-circle">❯</a>
@@ -45,7 +45,7 @@ const Imagesearch = () => {
           <div id="slide2" className="carousel-item relative w-full">
             <img
               src="https://images.pexels.com/photos/274422/pexels-photo-274422.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              className="w-full h-[550px]" />
+              className="w-full h-[700px]" />
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
               <a href="#slide1" className="btn btn-circle">❮</a>
               <a href="#slide3" className="btn btn-circle">❯</a>
@@ -54,7 +54,7 @@ const Imagesearch = () => {
           <div id="slide3" className="carousel-item relative w-full">
             <img
               src="https://images.pexels.com/photos/19282292/pexels-photo-19282292/free-photo-of-dan-ong-th-thao-tro-ch-i-mon-ch-i.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              className="w-full h-[550px]" />
+              className="w-full h-[700px]" />
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
               <a href="#slide2" className="btn btn-circle">❮</a>
               <a href="#slide4" className="btn btn-circle">❯</a>
@@ -63,21 +63,21 @@ const Imagesearch = () => {
           <div id="slide4" className="carousel-item relative w-full">
             <img
               src="https://gcs.tripi.vn/public-tripi/tripi-feed/img/474079QAo/hinh-nen-manchester-city-dep-nhat-cho-dien-thoai-may-tinh_041211380.jpg"
-              className="w-full h-[550px]" />
+              className="w-full h-[700px]" />
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
               <a href="#slide3" className="btn btn-circle">❮</a>
               <a href="#slide1" className="btn btn-circle">❯</a>
             </div>
           </div>
         </div>
-        <div>
+        {/* <div>
           <h1 className="absolute top-[190px] left-[350px]  w-[1100px] h-10 text-4xl font-bold text-green-800" >HỆ THỐNG ĐẶT SÂN ONLINE SÂN BÓNG ĐÌNH LÀNG HÒA MỸ</h1>
           <p className="absolute top-[260px] left-[550px]  w-[1100px] h-10 text-xl  text-white">DỮ LIỆU ĐƯỢC CẬP NHẬT LIÊN TỤC, CHÍNH XÁC, HỖ TRỢ NHANH CHÓNG</p>
-        </div>
-        <div className='absolute top-[320px] left-[530px] opacity-65'>
+        </div> */}
+        {/* <div className='absolute top-[320px] left-[530px] opacity-65'>
           <div className="max-w-5xl mx-auto bg-green-700 rounded-lg p-4 mt-6">
             <div className="flex space-x-2">
-              {/* Dropdown cho lọc loại sân */}
+            
                 <select
                   value={selectedSport}
                   onChange={(e) => setSelectedSport(e.target.value)}
@@ -93,7 +93,7 @@ const Imagesearch = () => {
                   ))}
                 </select>
 
-              {/* Input cho tên sân hoặc địa chỉ */}
+              
                 <input
                   type="text"
                   placeholder="Nhập tên sân hoặc địa chỉ..."
@@ -102,7 +102,7 @@ const Imagesearch = () => {
                   className="block w-1/2 py-2 px-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
 
-              {/* Input cho khu vực */}
+              
                 <input
                   type="text"
                   placeholder="Nhập khu vực..."
@@ -111,7 +111,7 @@ const Imagesearch = () => {
                   className="block w-1/4 py-2 px-3 border border-gray-300 bg-white rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
 
-              {/* Button Tìm kiếm */}
+              
                 <button
                   onClick={handleSearch}
                   className=" w-[150px] bg-red-800 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
@@ -120,7 +120,7 @@ const Imagesearch = () => {
                 </button>
             </div>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

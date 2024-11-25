@@ -5,13 +5,13 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const ue = await prisma.san.findFirst({ where: { Ten: body.Ten } });
-    const loaiXeExists = await prisma.danhMuc.findUnique({
+    const loaiSanExists = await prisma.danhMuc.findUnique({
       where: {
         id: parseInt(body.idDanhMuc),
       },
     });
 
-    if (!loaiXeExists) {
+    if (!loaiSanExists) {
       return NextResponse.json(
         {
           message: "Loại sân không tồn tại",
@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
           Sale: parseInt(body.Sale),
           Gia: parseInt(body.Gia),
           Tongtien: parseInt(body.Tongtien),
+          HinhDaiDien: body.HinhDaiDien,
           idDanhMuc: parseInt(body.idDanhMuc),
           TongDanhGia: parseInt(body.TongDanhGia),
           TongSao: parseInt(body.TongSao),
